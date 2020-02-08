@@ -266,7 +266,7 @@ function update_role() {
                         choices: roles
                     }
                 ]).then(function ({ employee_id, role_id }) {
-                    //UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition]
+                   
                     connection.query(`UPDATE employee SET role_id = ${roles.indexOf(role_id) + 1} WHERE id = ${employees.indexOf(employee_id) + 1}`, function (err, data) {
                         if (err) throw err;
 
@@ -356,7 +356,7 @@ function delete_employee() {
                 .prompt([
                     {
                         name: 'employee_id',
-                        message: "Which employee should be delete?",
+                        message: "Which employee should be deleted?",
                         type: 'list',
                         choices: employees
                     },
@@ -371,5 +371,35 @@ function delete_employee() {
                     })
                 })
         })
-    
+}
+
+function delete_role() {
+    connection.query(`SELECT * FROM role`, function (err, data) {
+        if (err) throw err;
+
+        let roles = [];
+
+        for (let i = 0; i < data.length; i++) {
+            roles.push(data[i].title)
+        }
+
+            inquirer
+                .prompt([
+                    {
+                        name: 'role_id',
+                        message: "Which role should be deleted?",
+                        type: 'list',
+                        choices: roles
+                    },
+
+                ]).then(function ({ role_id }) {
+
+                    connection.query(`DELETE from role WHERE id = ${roles.indexOf(role_id) + 1}`, function (err, data) {
+                        if (err) throw err;
+
+                        getJob();
+                        
+                    })
+                })
+        })
 }
