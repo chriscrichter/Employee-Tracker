@@ -19,8 +19,6 @@ connection.connect(function (err) {
 
 getJob();
 
-// Functions
-
 function getJob() {
     inquirer
         .prompt(
@@ -154,7 +152,7 @@ function add_employee() {
                 .prompt([
                     {
                         name: 'first_name',
-                        message: "what's the employee's first name?",
+                        message: "What is the employee's first name?",
                         type: 'input'
                     },
                     {
@@ -395,6 +393,37 @@ function delete_role() {
                 ]).then(function ({ role_id }) {
 
                     connection.query(`DELETE from role WHERE id = ${roles.indexOf(role_id) + 1}`, function (err, data) {
+                        if (err) throw err;
+
+                        getJob();
+                        
+                    })
+                })
+        })
+}
+
+function delete_department() {
+    connection.query(`SELECT * FROM department`, function (err, data) {
+        if (err) throw err;
+
+        let departments = [];
+
+        for (let i = 0; i < data.length; i++) {
+            departments.push(data[i].name)
+        }
+
+            inquirer
+                .prompt([
+                    {
+                        name: 'department_id',
+                        message: "Which department should be deleted?",
+                        type: 'list',
+                        choices: departments
+                    },
+
+                ]).then(function ({ department_id }) {
+
+                    connection.query(`DELETE from department WHERE id = ${departments.indexOf(department_id) + 1}`, function (err, data) {
                         if (err) throw err;
 
                         getJob();
