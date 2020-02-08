@@ -5,6 +5,20 @@ MySQL Homework: Employee Tracker
 
 Developers are often tasked with creating interfaces that make it easy for non-developers to view and interact with information stored in databases. Often these interfaces are known as **C**ontent **M**anagement **S**ystems. In this homework assignment, your challenge is to architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
 
+This command-line application allows the user to:
+
+  * View departments, roles, employees 
+
+  * Add departments, roles, employees
+
+  * Update employee roles and managers
+
+  * Delete departments, roles, and employees
+
+## Demonstration
+
+![Demo](https://raw.githubusercontent.com/chriscrichter/Employee-Tracker/master/assets/Employee-Tracker.gif)
+
 ## GitHub page
 
 My GitHub page can be found here:
