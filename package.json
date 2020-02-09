@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/chriscrichter/Employee-Tracker#readme",
   "dependencies": {
+    "ascii-art": "^2.5.0",
+    "asciiart-logo": "^0.2.6",
     "console.table": "^0.10.0",
     "inquirer": "^7.0.4",
     "mysql": "^2.18.1"

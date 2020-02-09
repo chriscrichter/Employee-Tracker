@@ -1,12 +1,27 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql')
 const cTable = require('console.table');
+const logo = require('asciiart-logo');
+
+console.log(
+    logo({
+        name: 'Employee     Tracker',
+        font: 'Speed',
+        lineChars: 10,
+        padding: 2,
+        margin: 3,
+        borderColor: 'blue',
+        logoColor: 'bold-red',
+        textColor: 'red',
+    })
+    .render()
+);
 
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "coder2020",
     database: "employeeTracker_db"
 });
 
