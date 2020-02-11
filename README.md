@@ -19,6 +19,8 @@ This command-line application allows the user to:
 
 ![Demo](https://raw.githubusercontent.com/chriscrichter/Employee-Tracker/master/assets/Employee-Tracker.gif)
 
+<img src="assets/Employee-Tracker.png" width="600" height="350">
+
 ## GitHub page
 
 My GitHub page can be found here:
