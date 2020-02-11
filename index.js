@@ -21,7 +21,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "coder2020",
+    password: "",
     database: "employeeTracker_db"
 });
 
@@ -49,13 +49,13 @@ function getJob() {
                     add();
                     break;
                 case 'view':
-                    view();
+                    viewList();
                     break;
                 case 'update':
                     update();
                     break;
                 case 'delete':
-                    deleteEmp();
+                    deleteList();
                     break;
                 case 'exit':
                     connection.end()
@@ -206,24 +206,51 @@ function add_employee() {
     })
 }
 
-function view() {
+function viewList() {
     inquirer
         .prompt(
             {
-                name: "db",
+                name: 'view',
                 message: 'Which would you like to view?',
                 type: 'list',
-                choices: ['department', 'role', 'employee'],
+                choices: ['employees by department', 'employees by manager']
             }
-        ).then(function ({ db }) {
-            connection.query(`SELECT * FROM ${db}`, function (err, data) {
-                if (err) throw err;
-
-                console.table(data)
-                getJob();
-            })
+        ).then(function ({ view }) {
+            switch (view) {
+                case 'employees by department':
+                    view_by_department();
+                    break;
+                case 'employees by manager':
+                    view_by_manager();
+                    break;
+            }
         })
 }
+
+function view_by_department() {
+    connection.query(`SELECT e1.id, e1.first_name, e1.last_name, role.title, department.name AS department, role.salary, CONCAT(e2.first_name, ' ', e2.last_name) AS manager FROM employee as e1
+  LEFT JOIN role on e1.role_id = role.id
+  LEFT JOIN department on role.department_id = department.id
+  LEFT JOIN employee as e2 on e2.id = e1.manager_id
+  ORDER BY department ASC`, function (err, data) {
+        if (err) throw err;
+        console.table(data)
+                getJob();
+            });
+         };
+
+
+function view_by_manager() {
+    connection.query(`SELECT CONCAT(e2.first_name, ' ', e2.last_name) AS manager, e1.id, e1.first_name, e1.last_name, role.title, department.name AS department, role.salary FROM employee as e1
+  LEFT JOIN role on e1.role_id = role.id
+  LEFT JOIN department on role.department_id = department.id
+  INNER JOIN employee as e2 on e2.id = e1.manager_id
+  ORDER BY manager ASC`, function (err, data) {
+        if (err) throw err;
+        console.table(data)
+                getJob();
+            });
+         };
 
 function update() {
     inquirer
@@ -331,17 +358,17 @@ function update_manager() {
     });
 }
 
-function deleteEmp() {
+function deleteList() {
     inquirer
         .prompt(
             {
-                name: 'deleteEmp',
+                name: 'deleteList',
                 message: 'What would you like to delete?',
                 type: 'list',
                 choices: ['employee', 'role', 'department']
             }
-        ).then(function ({ deleteEmp }) {
-            switch (deleteEmp) {
+        ).then(function ({ deleteList }) {
+            switch (deleteList) {
                 case 'employee':
                     delete_employee();
                     break;

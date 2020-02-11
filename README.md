@@ -7,7 +7,7 @@ Developers are often tasked with creating interfaces that make it easy for non-d
 
 This command-line application allows the user to:
 
-  * View departments, roles, employees 
+  * View employees by department, employees by manager 
 
   * Add departments, roles, employees
 
